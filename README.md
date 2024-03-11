@@ -12,7 +12,10 @@ My purpose is to make it adaptive to the newer python, pytorch, cuda versions.
 ```bash
 pip install torch numba cffi mayavi joblib pypng
 ```
-
+* Setup:
+```bash
+cd models; python3 build_khash_cffi.py; cd ..
+```
 ## Data preprocess
 
 * FlyingThings3D:
@@ -31,11 +34,6 @@ Run the following script for 3D reconstruction:
 python3 data_preprocess/process_kitti.py RAW_DATA_PATH SAVE_PATH/KITTI_processed_occ_final
 ```
 
-## Get started
-Setup:
-```bash
-cd models; python3 build_khash_cffi.py; cd ..
-```
 
 ### Trained models
 Out trained model can be downloaded in the [`trained_models`](https://github.com/laoreja/HPLFlowNet/tree/master/trained_models) folder.
