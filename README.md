@@ -4,9 +4,9 @@ My purpose is to make it adaptive to the newer python, pytorch, cuda versions.
 * [Original Paper](https://web.cs.ucdavis.edu/~yjlee/projects/cvpr2019-HPLFlowNet.pdf)
 
 ## Tested Environment
-|python|pytorch|cuda|cffi|
-|---|---|---|---|
-|3.9.18|1.13.0|11.6|1.16.0|
+|python|pytorch|cuda|cffi|numba|
+|---|---|---|---|---|
+|3.9.18|1.13.0|11.6|1.16.0|0.59.0|
 
 * Installation on Ubuntu:
 ```bash
