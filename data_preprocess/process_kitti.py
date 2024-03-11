@@ -1,17 +1,25 @@
-import os, sys
+import os
+import shutil
 import os.path as osp
 import numpy as np
-from multiprocessing import Pool
+from joblib import Parallel, delayed
 
 from kitti_utils import *
+import argparse
 
-calib_root = './utils/calib_cam_to_cam/'
-data_root = sys.argv[1]
+parser = argparse.ArgumentParser()
+parser.add_argument("--data_root",type=str,default="/home/ouni/data/KITTI/Flow/dataset")
+parser.add_argument("--save_path",type=str,default="/home/ouni/CODE/Research/HPLFlowNet/res/KITTI_processed_occ_final")
+args = parser.parse_args()
+data_root = args.data_root
+save_path = args.save_path
+calib_root = osp.join(data_root, 'training/calib_cam_to_cam')
 disp1_root = osp.join(data_root, 'training/disp_occ_0')
 disp2_root = osp.join(data_root, 'training/disp_occ_1')
 op_flow_root = osp.join(data_root, 'training/flow_occ')
-
-save_path = sys.argv[2]
+if os.path.isdir(save_path):
+    shutil.rmtree(save_path)
+os.makedirs(save_path)
 
 
 def process_one_frame(idx):
@@ -73,9 +81,7 @@ def process_one_frame(idx):
     np.save(osp.join(truenas_path, 'pc1.npy'), valid_pc1)
     np.save(osp.join(truenas_path, 'pc2.npy'), valid_pc2)
 
-
-pool = Pool(4)
-indices = range(200)
-pool.map(process_one_frame, indices)
-pool.close()
-pool.join()
+if __name__ == "__main__":
+    # for i in range(200):
+    #     process_one_frame(i)
+    Parallel(n_jobs=8)(delayed(process_one_frame)(i) for i in range(200))
