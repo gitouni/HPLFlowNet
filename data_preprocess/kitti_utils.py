@@ -1,6 +1,7 @@
 import numpy as np
 import png
 
+POW_2_15 = 2**15
 
 def pixel2xyz(depth, P_rect, px=None, py=None):
     assert P_rect[0,1] == 0
@@ -29,7 +30,7 @@ def pixel2xyz(depth, P_rect, px=None, py=None):
 def load_uint16PNG(fpath):
     reader = png.Reader(fpath)
     pngdata = reader.read()
-    px_array = np.vstack( map(np.uint16, pngdata[2]) )
+    px_array = np.vstack(list(map(np.uint16, pngdata[2])))
     if pngdata[3]['planes'] == 3:
         width, height = pngdata[:2]
         px_array = px_array.reshape(height, width, 3)
@@ -51,7 +52,7 @@ def load_op_flow(fpath):
     array = load_uint16PNG(fpath)
     valid = array[..., -1] == 1
     array = array.astype(np.float32)
-    flow = (array[..., :-1] - 2**15) / 64.
+    flow = (array[..., :-1] - POW_2_15) / 64.
     return flow, valid
 
 
