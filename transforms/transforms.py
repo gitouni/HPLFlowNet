@@ -1,11 +1,11 @@
-import os, sys
+import sys
 import os.path as osp
-from collections import defaultdict
-import numbers
+# from collections import defaultdict
+# import numbers
 import math
 import numpy as np
-import traceback
-import time
+# import traceback
+# import time
 
 import torch
 
@@ -116,7 +116,7 @@ class Traverse:
         self.d = d
 
     def go(self, start_key, hash_table_list):
-        walking_keys = np.empty((self.d + 1, self.d + 1), dtype=np.long)
+        walking_keys = np.empty((self.d + 1, self.d + 1), dtype=np.int64)
         self.walk_cuboid(start_key, 0, False, walking_keys, hash_table_list)
 
     def walk_cuboid(self, start_key, d, has_zero, walking_keys, hash_table_list):
@@ -292,7 +292,7 @@ class GenerateDataUnsymmetric(object):
 
         for radius in radius_set:
             hash_table = []
-            center = np.array([0] * self.d1, dtype=np.long)
+            center = np.array([0] * self.d1, dtype=np.int64)
 
             traversal = Traverse(radius, self.d)
             traversal.go(center, hash_table)
