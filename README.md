@@ -37,6 +37,9 @@ python3 data_preprocess/process_kitti.py RAW_DATA_PATH SAVE_PATH/KITTI_processed
 
 ### Trained models
 Out trained model can be downloaded in the [`trained_models`](https://github.com/laoreja/HPLFlowNet/tree/master/trained_models) folder.
+```bash
+mv PATH_TO_CHECKPOINT trained_models/flying3d.pth
+```
 
 ### Inference
 Set `data_root` in the configuration file to `SAVE_PATH` in the data preprocess section. Set `resume` to be the path of your trained model or our trained model in `trained_models`. Then run
